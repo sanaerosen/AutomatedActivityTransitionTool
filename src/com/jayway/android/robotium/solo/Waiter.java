@@ -6,11 +6,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 import junit.framework.Assert;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.SystemClock;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -454,7 +455,7 @@ class Waiter {
 	 * @return a SupportFragment with a given tag or id
 	 */
 
-	private Fragment getSupportFragment(String tag, int id){
+	private android.support.v4.app.Fragment getSupportFragment(String tag, int id){
 		FragmentActivity fragmentActivity = null;
 
 		try{

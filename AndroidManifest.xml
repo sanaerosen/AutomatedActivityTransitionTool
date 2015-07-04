@@ -9,7 +9,7 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.newegg.app"/>   
+        android:targetPackage="com.webmd.android"/>   
 
     <application
         android:icon="@drawable/ic_launcher"

@@ -78,7 +78,9 @@ class ViewFetcher {
 	 */
 
 	public ArrayList<View> getAllViews(boolean onlySufficientlyVisible) {
-	    final View[] views = getWindowDecorViews();
+	    try {
+		    final View[] views = getWindowDecorViews();
+
 	    final ArrayList<View> allViews = new ArrayList<View>();
 	    final View[] nonDecorViews = getNonDecorViews(views);
 
@@ -101,6 +103,9 @@ class ViewFetcher {
                  if(view != null) allViews.add(view);
 	    }
 	    return allViews;
+	    } catch (ClassCastException e) {
+		return getWindowDecorViewsArray();
+	    }
 	}
 
 	/**
@@ -397,6 +402,30 @@ class ViewFetcher {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public ArrayList getWindowDecorViewsArray() {
+
+		Field viewsField;
+		Field instanceField;
+		try {
+			viewsField = windowManager.getDeclaredField("mViews");
+			instanceField = windowManager.getDeclaredField(windowManagerString);
+			viewsField.setAccessible(true);
+			instanceField.setAccessible(true);
+			Object instance = instanceField.get(null);
+			return (ArrayList) viewsField.get(instance);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	    
 	}
 	
 	/**
